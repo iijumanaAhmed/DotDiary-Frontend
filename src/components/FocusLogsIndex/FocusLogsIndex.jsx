@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import axios from 'axios'
+import { Link } from 'react-router'
 
 function FocusLogsIndex() {
     const [focusLogs, setFocusLogs] = useState([])
@@ -17,6 +18,7 @@ function FocusLogsIndex() {
         <>
             {/* Display testing */}
             <h1>Focus Logs</h1>
+            <Link to='/focusLogs/newSession'>Start new Focus Session</Link>
             {
                 focusLogs.length
                 ?
