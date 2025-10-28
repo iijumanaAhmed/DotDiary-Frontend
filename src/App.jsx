@@ -17,6 +17,7 @@ function App() {
       <Routes>
         <Route path='/focusLogs' element={<FocusLogsIndex />}></Route>
         <Route path='/focusLogs/newSession' element={<FocusLogSession />}></Route>
+        <Route path='/focusLogs/:sessionId/currentSession' element={<FocusLogSession />}></Route>
       </Routes>
     </Router>
   )
