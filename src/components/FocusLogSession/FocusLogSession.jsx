@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
-import { useNavigate, useParams } from 'react-router'
 
 function FocusLogSession() {
     const [formData, setFormData] = useState({
@@ -11,7 +10,22 @@ function FocusLogSession() {
         outcomes: '',
     })
 
+    const [tags, setTags] = useState([])
+
+    async function retriveTags() {
+        const response = await axios.get('http://127.0.0.1:8000/api/tags/')
+        console.log(response.data)
+        setTags(response.data)
+    }
+    useEffect(() => {
+        retriveTags()
+    }, [])
+
     function handleChange(event) {
+        console.log(event)
+        console.log(event.target)
+        console.log(event.target.name)
+        console.log(event.target.value)
         setFormData({ ...formData, [event.target.name]: event.target.value })
         console.log(formData)
     }
@@ -33,7 +47,21 @@ function FocusLogSession() {
                 </div>
                 <div>
                     <label htmlFor='status'> Session Tag </label>
-                    {/* Add the child component (Tag) */}
+                    {
+                        tags.length
+                            ?
+                            <select value={formData.tag} onChange={handleChange} id='tag' name='tag'>
+                                {
+                                    tags.map(tag => {
+                                        return (
+                                            <option id='tag' name='tag' value={tag.id} key={tag.id}>{tag.tag_name}</option>
+                                        )
+                                    })
+                                }
+                            </select>
+                            :
+                            <p>No Tags Found !!</p>
+                    }
                 </div>
                 <div>
                     <label htmlFor='status'> Session Status </label>
