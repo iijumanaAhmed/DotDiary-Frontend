@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router'
 
 import FocusLogsIndex from './components/FocusLogsIndex/FocusLogsIndex'
 import FocusLogSession from './components/FocusLogSession/FocusLogSession'
+import SessionDetail from './components/SessionDetail/SessionDetail'
 
 function App() {
   async function makeRequest() {
@@ -18,6 +19,7 @@ function App() {
         <Route path='/focusLogs' element={<FocusLogsIndex />}></Route>
         <Route path='/focusLogs/newSession' element={<FocusLogSession />}></Route>
         <Route path='/focusLogs/:sessionId/currentSession' element={<FocusLogSession />}></Route>
+        <Route path='/focusLogs/:sessionId' element={<SessionDetail />}></Route>
       </Routes>
     </Router>
   )

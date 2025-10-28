@@ -24,14 +24,16 @@ function FocusLogsIndex() {
                 ?
                 focusLogs.map(log => {
                     return (
-                        <div key={log.id}>
+                        <>
+                        <Link key={log.id} to={`/focusLogs/${log.id}`}>
                             <h4> FocusLog #{log.id} </h4>
+                        </Link>
                             <p> started at: {log.start_time} </p>
                             <p> ended at: {log.end_time} </p>
                             <p> total duration: {log.total_duration} </p>
                             <p> status: {log.status} </p>
                             <p> focus level: {log.focus_level} </p>
-                        </div>
+                        </>
                     )
                 })
                 :
