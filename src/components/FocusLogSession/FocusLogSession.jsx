@@ -2,6 +2,9 @@ import { useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router'
 import { authRequest } from "../../lib/auth"
 
+import ToDoList from '../ToDoList/ToDoList'
+import Distractions from './Distractions/Distractions'
+
 function FocusLogSession({ user }) {
     const { sessionId } = useParams()
     const navigate = useNavigate()
@@ -98,7 +101,7 @@ function FocusLogSession({ user }) {
                                 </div>
                                 <div>
                                     <label htmlFor='todolist'> To Do List </label>
-                                    {/* Add the component (ToDoList) */}
+                                    <ToDoList user={user} setSessionData={setSessionData} sessionId={sessionId} updatedtasksData={updatedtasksData} />
                                 </div>
                                 <div>
                                     {/* Timer will be active later on */}
@@ -119,6 +122,7 @@ function FocusLogSession({ user }) {
                                     <label htmlFor='outcomes'> Outcomes: </label>
                                     <textarea onChange={handleChange} id='outcomes' name='outcomes'></textarea>
                                 </div>
+                                <Distractions sessionData={formData} setSessionData={setFormData} />
                                 <button type='submit'>Submit</button>
                             </form>
                         </>
