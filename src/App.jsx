@@ -16,6 +16,9 @@ import SessionDetail from './components/FocusLogSession/SessionDetail/SessionDet
 
 import ToDoList from './components/ToDoList/ToDoList'
 
+import DotDiary from './components/DotDiary/DotDiary'
+import WeeklySummary from './components/WeeklySummary/WeeklySummary'
+
 import { getUserFromToken } from './lib/auth'
 
 function App() {
@@ -31,6 +34,8 @@ function App() {
         <Route path='/signup' element={<SignUp />} />
         <Route path='/userprofile' element={<ProtectedRoute> <UserProfile user={user} /> </ProtectedRoute>}></Route>
 
+        <Route path='/dotDiary' element={<ProtectedRoute> <DotDiary user={user}/> </ProtectedRoute>}></Route>
+        <Route path='/weeklySummary' element={<ProtectedRoute> <WeeklySummary user={user}/> </ProtectedRoute>}></Route>
         <Route path='/focusLogs' element={<ProtectedRoute> <FocusLogsIndex user={user} /> </ProtectedRoute>}></Route>
         <Route path='/focusLogs/newSession' element={<ProtectedRoute> <FocusLogForm user={user} todolistId={todolistId} /> </ProtectedRoute>}></Route>
         <Route path='/focusLogs/:sessionId/currentSession' element={<ProtectedRoute> <FocusLogSession user={user} /> </ProtectedRoute>}></Route>

@@ -8,10 +8,13 @@ function NavBar({ user, setUser }) {
                 user
                     ?
                     <>
-                        <LogOutButton setUser={setUser} />
+                        <image src='../assets/images/dotDiary_logo.png'></image>
+                        <Link to={'/dotDiary'}>DotDiary</Link>
                         <Link to={'/focusLogs'}>Focus Sessions</Link>
                         <Link to={'/toDoLists'}>Todo Lists</Link>
+                        <Link to='/weeklySummary'>Weekly Summary</Link>
                         <Link to={'/userprofile'}>Account</Link>
+                        <LogOutButton setUser={setUser} />
                     </>
                     :
                     <>
