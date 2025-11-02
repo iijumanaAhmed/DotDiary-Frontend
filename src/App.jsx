@@ -12,6 +12,9 @@ import UserProfile from './components/UserProfile/UserProfile'
 import FocusLogsIndex from './components/FocusLogsIndex/FocusLogsIndex'
 import FocusLogForm from './components/FocusLogForm/FocusLogForm'
 import FocusLogSession from './components/FocusLogSession/FocusLogSession'
+import SessionDetail from './components/FocusLogSession/SessionDetail/SessionDetail'
+
+import ToDoList from './components/ToDoList/ToDoList'
 
 import { getUserFromToken } from './lib/auth'
 
@@ -31,9 +34,10 @@ function App() {
         <Route path='/focusLogs' element={<ProtectedRoute> <FocusLogsIndex user={user} /> </ProtectedRoute>}></Route>
         <Route path='/focusLogs/newSession' element={<ProtectedRoute> <FocusLogForm user={user} todolistId={todolistId} /> </ProtectedRoute>}></Route>
         <Route path='/focusLogs/:sessionId/currentSession' element={<ProtectedRoute> <FocusLogSession user={user} /> </ProtectedRoute>}></Route>
-
-        <Route path='/focusLogs/:sessionId/currentSession' element={<ProtectedRoute> <FocusLogSession user={user} /> </ProtectedRoute>}></Route>
-        <Route path='/focusLogs/:sessionId' element={<ProtectedRoute> <SessionDetail user={user} /> </ProtectedRoute>}></Route>
+        <Route path='/focusLogs/:sessionId' element={<ProtectedRoute> <SessionDetail user={user}/> </ProtectedRoute>}></Route>
+        
+        <Route path='/toDoLists' element={<ProtectedRoute> <ToDoList user={user} setTodolistId={setTodolistId}/> </ProtectedRoute>}></Route>
+        <Route path='/toDoLists/:toDoListId' element={<ProtectedRoute> <ToDoList user={user} setTodolistId={setTodolistId}/> </ProtectedRoute>}></Route>
       </Routes>
     </Router>
   )
