@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router'
+
 import { authRequest } from "../../lib/auth"
 
-import ToDoList from '../ToDoList/ToDoList'
 import Distractions from './Distractions/Distractions'
+import Timer from './Timer/Timer'
 
 function FocusLogSession({ user }) {
     const { sessionId } = useParams()
@@ -12,21 +13,22 @@ function FocusLogSession({ user }) {
     const [formData, setFormData] = useState({
         user: user.user_id,
         tag: '',
-        status: '',
-        focus_level: 1,
+        focus_level: '',
         outcomes: '',
+        start_time: '',
+        end_time: '',
+        total_duration: '',
     })
 
-    const [sessionData, setSessionData] = useState({})
-    const [tags, setTags] = useState([])
+    let updatedtasksData = {}
 
     async function previewSession() {
         const response = await authRequest({ method: 'get', url: `http://127.0.0.1:8000/api/focusLogs/${sessionId}` })
         setFormData(response.data)
-        setSessionData(formData)
+        updatedtasksData = response.data
         console.log(response.data)
-        console.log('formData:', formData)
-        console.log('sessionData:', sessionData)
+        console.log('updatedtasksData:', updatedtasksData)
+
     }
     useEffect(() => {
         if (sessionId) {
@@ -34,6 +36,7 @@ function FocusLogSession({ user }) {
         }
     }, [])
 
+    const [tags, setTags] = useState([])
     async function retriveTags() {
         const response = await authRequest({ method: 'get', url: 'http://127.0.0.1:8000/api/tags/' })
         console.log(response.data)
@@ -53,28 +56,26 @@ function FocusLogSession({ user }) {
         let response = {}
         if (sessionId) {
             if (formData.tag === '' || formData.tag === null || formData.focus_level === null) {
-                // testing with log -> later will be handeled in the page
                 console.error('must be selected')
 
             } else {
                 response = await authRequest({ data: formData, method: 'put', url: `http://127.0.0.1:8000/api/focusLogs/${sessionId}/` })
             }
-        } else {
-            if (formData.tag === '' || formData.tag === null) {
-                console.error('tag must be selected');
-            } else {
-                response = await authRequest({ data: formData, method: 'post', url: 'http://127.0.0.1:8000/api/focusLogs/' })
-            }
-
         }
-        console.log(response)
-
-        if (response.status === 201) {
-            setSessionData(response.data)
-            console.log('session DATA:', sessionData)
-            navigate(`/focusLogs/${response.data.id}/currentSession`)
+        if (response.status === 200) {
+            navigate(`/focusLogs`)
         }
     }
+
+    async function deleteSession() {
+        let response = {}
+        response = await authRequest({ method: 'delete', url: `http://127.0.0.1:8000/api/focusLogs/${sessionId}/` })
+        response = await authRequest({ method: 'delete', url: `http://127.0.0.1:8000/api/toDoLists/${formData.todolist}/` })
+        if (response.status === 204) {
+            navigate(`/focusLogs`)
+        }
+    }
+
 
     return (
         <div>
@@ -85,9 +86,9 @@ function FocusLogSession({ user }) {
                         ?
                         <>
                             <h1> Focus Session {sessionId}</h1>
-                            <button>start</button>
-                            <button>pause</button>
-                            <button>end</button>
+                            <div>
+                                <Timer setFormData={setFormData} formData={formData} />
+                            </div>
                             <form onSubmit={handleSessionEnd}>
                                 <div>
                                     <h3> Session Tag: {
@@ -98,14 +99,6 @@ function FocusLogSession({ user }) {
                                         }
                                         )}
                                     </h3>
-                                </div>
-                                <div>
-                                    <label htmlFor='todolist'> To Do List </label>
-                                    <ToDoList user={user} setSessionData={setSessionData} sessionId={sessionId} updatedtasksData={updatedtasksData} />
-                                </div>
-                                <div>
-                                    {/* Timer will be active later on */}
-                                    <h2>00:00:00</h2>
                                 </div>
                                 <div>
                                     <label htmlFor='focus_level'> Focus Level: </label>
@@ -122,36 +115,14 @@ function FocusLogSession({ user }) {
                                     <label htmlFor='outcomes'> Outcomes: </label>
                                     <textarea onChange={handleChange} id='outcomes' name='outcomes'></textarea>
                                 </div>
-                                <Distractions sessionData={formData} setSessionData={setFormData} />
                                 <button type='submit'>Submit</button>
                             </form>
+                            <Distractions sessionData={formData} setSessionData={setFormData} />
+                            <button type='submit' onClick={deleteSession}>Delete</button>
+
                         </>
                         :
-                        <>
-                            <h1> start Focus Session </h1>
-                            <form onSubmit={handleSessionEnd}>
-                                <div>
-                                    <label htmlFor='status'> Session Tag </label>
-                                    {
-                                        tags.length
-                                            ?
-                                            <select value={formData.tag} onChange={handleChange} id='tag' name='tag'>
-                                                <option value={''}></option>
-                                                {
-                                                    tags.map(tag => {
-                                                        return (
-                                                            <option id='tag' name='tag' value={tag.id} key={tag.id}>{tag.tag_name}</option>
-                                                        )
-                                                    })
-                                                }
-                                            </select>
-                                            :
-                                            <p>No Tags Found !!</p>
-                                    }
-                                </div>
-                                <button type='submit'>Submit</button>
-                            </form>
-                        </>
+                        null
                     :
                     <p>unathorized user</p>
             }
