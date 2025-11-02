@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router'
 import { authRequest } from "../../lib/auth"
 
+import Tasks from './Tasks/Tasks'
+
 function ToDoList({ user, setSessionData, sessionId, updatedtasksData }) {
     const { toDoListId } = useParams()
     const navigate = useNavigate()
@@ -98,6 +100,7 @@ function ToDoList({ user, setSessionData, sessionId, updatedtasksData }) {
                                 </div>
                                 <button type='submit'>Update</button>
                             </form>
+                            <Tasks toDoListId={updatedtasksData.todolist} todolistData={todolistData} setTodoListData={setTodoListData} sessionId={sessionId} updatedtasksData={updatedtasksData} />
                             <button type='submit' onClick={deleteToDoList}>Delete</button>
                             <button type='submit' onClick={currentSession}>Next</button>
                         </div>
@@ -105,7 +108,7 @@ function ToDoList({ user, setSessionData, sessionId, updatedtasksData }) {
                         toDoListId
                             ?
                             <>
-                                <h1> {toDoListId} To Do List </h1>
+                                <h1> {toDoListId} To Dooooo List </h1>
                                 <form onSubmit={updateToDoList}>
                                     <div>
                                         <label htmlFor='list_title'> Current To Do List </label>
@@ -113,6 +116,7 @@ function ToDoList({ user, setSessionData, sessionId, updatedtasksData }) {
                                     </div>
                                     <button type='submit'>Update</button>
                                 </form>
+                                <Tasks toDoListId={toDoListId} todolistData={todolistData} setTodoListData={setTodoListData} />
                                 <button type='submit' onClick={deleteToDoList}>Delete</button>
                                 <button type='submit' onClick={currentSession}>Next</button>
                             </>
