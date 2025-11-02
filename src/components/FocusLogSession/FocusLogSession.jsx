@@ -127,7 +127,6 @@ function FocusLogSession({ user }) {
                             <h1> start Focus Session </h1>
                             <form onSubmit={handleSessionEnd}>
                                 <div>
-                                    {/* will be updated to displayed from the child component (Tag) */}
                                     <label htmlFor='status'> Session Tag </label>
                                     {
                                         tags.length
