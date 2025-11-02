@@ -11,9 +11,12 @@
   },
   "dependencies": {
     "axios": "^1.13.0",
+    "jwt-decode": "^4.0.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
-    "react-router": "^7.9.4"
+    "react-router": "^7.9.4",
+    "react-select": "^5.10.2",
+    "react-timezone-select": "^3.2.8"
   },
   "devDependencies": {
     "@eslint/js": "^9.36.0",
