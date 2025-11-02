@@ -1,10 +1,10 @@
-import axios from 'axios'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
+
 import { authRequest } from '../../../lib/auth'
 
 import Task from './Task/Task'
 
-function Tasks({ toDoListId, todolistData, setTodoListData, sessionId, sessionData }) {
+function Tasks({ toDoListId, todolistData, setTodoListData }) {
 
     const [tasksData, setTasksData] = useState({
         task: '',
@@ -19,18 +19,6 @@ function Tasks({ toDoListId, todolistData, setTodoListData, sessionId, sessionDa
             tasks: response.data
         })
     }
-    async function sessionTasks() {
-        const response = await authRequest({ method: 'get', url: `http://127.0.0.1:8000/api/toDoLists/${sessionData.todolist}/tasks` })
-        setTodoListData({
-            ...todolistData,
-            tasks: response.data
-        })
-    }
-    useEffect(() => {
-        if (sessionId) {
-            sessionTasks()
-        }
-    }, [])
 
     function handleChange(event) {
         setTasksData({ ...tasksData, [event.target.name]: event.target.value })
@@ -75,7 +63,6 @@ function Tasks({ toDoListId, todolistData, setTodoListData, sessionId, sessionDa
                                         <div key={task.id}>
                                             <Task toDoListId={toDoListId} taskId={task.id} tasksData={tasksData} setTasksData={setTasksData} />
                                             <button onClick={() => { deleteTask(task.id) }}>x</button>
-
                                         </div>
                                     )
                                 })

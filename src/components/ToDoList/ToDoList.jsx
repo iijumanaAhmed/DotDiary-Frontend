@@ -1,16 +1,19 @@
 import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router'
+
 import { authRequest } from "../../lib/auth"
 
 import Tasks from './Tasks/Tasks'
 
-function ToDoList({ user, setSessionData, sessionId, updatedtasksData }) {
+function ToDoList({ user, setTodolistId, sessionId, todolist }) {
     const { toDoListId } = useParams()
     const navigate = useNavigate()
 
     const [todolistData, setTodoListData] = useState({
         list_title: ''
     })
+
+    let updatedTodolist = {}
 
     async function displayToDoList() {
         const response = await authRequest({ method: 'get', url: `http://127.0.0.1:8000/api/toDoLists/${toDoListId}` })
@@ -20,10 +23,11 @@ function ToDoList({ user, setSessionData, sessionId, updatedtasksData }) {
     }
 
     async function sessionToDoList() {
-        const response = await authRequest({ method: 'get', url: `http://127.0.0.1:8000/api/toDoLists/${updatedtasksData.todolist}` })
+        const response = await authRequest({ method: 'get', url: `http://127.0.0.1:8000/api/toDoLists/${todolist}` })
         setTodoListData(response.data)
+        updatedTodolist = response.data
         console.log(response.data)
-        console.log(todolistData)
+        console.log(updatedTodolist)
     }
     useEffect(() => {
         if (toDoListId) {
@@ -50,7 +54,7 @@ function ToDoList({ user, setSessionData, sessionId, updatedtasksData }) {
         }
 
         if (response.status === 201) {
-            setSessionData(response.data.id)
+            setTodolistId(response.data.id)
             navigate(`/toDoLists/${response.data.id}`)
         }
     }
@@ -92,7 +96,7 @@ function ToDoList({ user, setSessionData, sessionId, updatedtasksData }) {
                     sessionId
                         ?
                         <div>
-                            <h1> {updatedtasksData.todolist} To Do List </h1>
+                            <h1> {todolist} To Do List </h1>
                             <form onSubmit={updateToDoList}>
                                 <div>
                                     <label htmlFor='list_title'> Current To Do List </label>
@@ -100,7 +104,7 @@ function ToDoList({ user, setSessionData, sessionId, updatedtasksData }) {
                                 </div>
                                 <button type='submit'>Update</button>
                             </form>
-                            <Tasks toDoListId={updatedtasksData.todolist} todolistData={todolistData} setTodoListData={setTodoListData} sessionId={sessionId} updatedtasksData={updatedtasksData} />
+                            <Tasks toDoListId={todolist} todolistData={todolistData} setTodoListData={setTodoListData} sessionId={sessionId} />
                             <button type='submit' onClick={deleteToDoList}>Delete</button>
                             <button type='submit' onClick={currentSession}>Next</button>
                         </div>

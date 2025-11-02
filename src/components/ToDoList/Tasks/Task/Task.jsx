@@ -1,6 +1,6 @@
-import axios from 'axios'
 import { useEffect, useState } from 'react'
-import { useNavigate, useParams } from 'react-router'
+import { useNavigate } from 'react-router'
+
 import { authRequest } from '../../../../lib/auth'
 
 function Task({ toDoListId, taskId }) {
