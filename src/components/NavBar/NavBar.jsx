@@ -10,6 +10,8 @@ function NavBar({ user, setUser }) {
                     <>
                         <LogOutButton setUser={setUser} />
                         <Link to={'/focusLogs'}>Focus Sessions</Link>
+                        <Link to={'/toDoLists'}>Todo Lists</Link>
+                        <Link to={'/userprofile'}>Account</Link>
                     </>
                     :
                     <>
