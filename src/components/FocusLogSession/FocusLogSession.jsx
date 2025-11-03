@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router'
-
 import { authRequest } from "../../lib/auth"
 
 import Distractions from './Distractions/Distractions'
@@ -10,7 +9,7 @@ function FocusLogSession({ user }) {
     const { sessionId } = useParams()
     const navigate = useNavigate()
 
-    const [formData, setFormData] = useState({
+    const [sessionData, setSessionData] = useState({
         user: user.user_id,
         tag: '',
         focus_level: '',
@@ -24,7 +23,7 @@ function FocusLogSession({ user }) {
 
     async function previewSession() {
         const response = await authRequest({ method: 'get', url: `http://127.0.0.1:8000/api/focusLogs/${sessionId}` })
-        setFormData(response.data)
+        setSessionData(response.data)
         updatedtasksData = response.data
         console.log(response.data)
         console.log('updatedtasksData:', updatedtasksData)
@@ -47,19 +46,19 @@ function FocusLogSession({ user }) {
     }, [])
 
     function handleChange(event) {
-        setFormData({ ...formData, [event.target.name]: event.target.value })
-        console.log(formData)
+        setSessionData({ ...sessionData, [event.target.name]: event.target.value })
+        console.log(sessionData)
     }
 
     async function handleSessionEnd(event) {
         event.preventDefault()
         let response = {}
         if (sessionId) {
-            if (formData.tag === '' || formData.tag === null || formData.focus_level === null) {
+            if (sessionData.tag === '' || sessionData.tag === null || sessionData.focus_level === null) {
                 console.error('must be selected')
 
             } else {
-                response = await authRequest({ data: formData, method: 'put', url: `http://127.0.0.1:8000/api/focusLogs/${sessionId}/` })
+                response = await authRequest({ data: sessionData, method: 'put', url: `http://127.0.0.1:8000/api/focusLogs/${sessionId}/` })
             }
         }
         if (response.status === 200) {
@@ -70,7 +69,7 @@ function FocusLogSession({ user }) {
     async function deleteSession() {
         let response = {}
         response = await authRequest({ method: 'delete', url: `http://127.0.0.1:8000/api/focusLogs/${sessionId}/` })
-        response = await authRequest({ method: 'delete', url: `http://127.0.0.1:8000/api/toDoLists/${formData.todolist}/` })
+        response = await authRequest({ method: 'delete', url: `http://127.0.0.1:8000/api/toDoLists/${sessionData.todolist}/` })
         if (response.status === 204) {
             navigate(`/focusLogs`)
         }
@@ -87,14 +86,14 @@ function FocusLogSession({ user }) {
                         <>
                             <h1> Focus Session {sessionId}</h1>
                             <div>
-                                <Timer setFormData={setFormData} formData={formData} />
+                                <Timer setSessionData={setSessionData} sessionData={sessionData} />
                             </div>
                             <form onSubmit={handleSessionEnd}>
                                 <div>
                                     <h3> Session Tag: {
                                         tags.map(tag => {
                                             return (
-                                                tag.id === formData.tag ? tag.tag_name : ''
+                                                tag.id === sessionData.tag ? tag.tag_name : ''
                                             )
                                         }
                                         )}
@@ -117,9 +116,8 @@ function FocusLogSession({ user }) {
                                 </div>
                                 <button type='submit'>Submit</button>
                             </form>
-                            <Distractions sessionData={formData} setSessionData={setFormData} />
+                            <Distractions sessionData={sessionData} setSessionData={setSessionData} />
                             <button type='submit' onClick={deleteSession}>Delete</button>
-
                         </>
                         :
                         null

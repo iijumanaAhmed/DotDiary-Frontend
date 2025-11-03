@@ -1,72 +1,72 @@
-import React from 'react'
-import { useState, useEffect } from 'react'
+import { useState, useRef } from "react"
 
-function Timer({ setFormData, formData }) {
-    // https://www.youtube.com/watch?v=ZhW7sB70lZ4
-    let timer, time
-    let manageInterval
-    let timeStart
+function Timer({ setSessionData, sessionData }) {
+    // Used to create simple timer: https://www.youtube.com/watch?v=ZhW7sB70lZ4
+    // Used to update the timer using useState, useRef: https://medium.com/swlh/creating-a-simple-countdown-timer-using-react-useref-hook-92ae5b6210cb
+    const [starting, setStarting] = useState(false)
+    const [durationTime, setDurationTime] = useState("00:00:00")
+    const [timeStart, setTimeStart] = useState(null)
+    const intervalRef = useRef()
+
     function startTime() {
         const date = new Date()
-        timeStart = date.getHours().toString().padStart(2, "0")
+        const time = date.getHours().toString().padStart(2, "0")
             + ':' + date.getMinutes().toString().padStart(2, "0")
             + ':' + date.getSeconds().toString().padStart(2, "0")
+        setTimeStart(time)
     }
-    // useEffect(() => {
-    //     startTime()
-    // }, [])
 
     function startTimer() {
-        const startBtn = document.getElementById('startBtn')
-        const stopBtn = document.getElementById('stopBtn')
-        startBtn.style.display = 'none'
-        stopBtn.style.display = 'inline-block'
-        timer = document.getElementById('timer')
-        time = timer.textContent
-        let hr, min, sec
-        let [hours, minutes, seconds] = time.split(":").map(Number)
-
-        manageInterval = setInterval(() => {
-            seconds++
-            if (seconds === 60) {
-                seconds = 0
-                minutes++
-            }
-            if (minutes === 60) {
-                minutes = 0
-                hours++
-            }
-            hr = hours.toString().padStart(2, "0")
-            min = minutes.toString().padStart(2, "0")
-            sec = seconds.toString().padStart(2, "0")
-            time = `${hr}:${min}:${sec}`
-            timer.textContent = time
-        }, 1000)
-
-        startTime()
+        if (starting) {
+            return
+        } else {
+            startTime()
+            setStarting(true)
+            let hr, min, sec
+            let [hours, minutes, seconds] = durationTime.split(":").map(Number)
+            intervalRef.current = setInterval(() => {
+                seconds++
+                if (seconds === 60) {
+                    seconds = 0
+                    minutes++
+                }
+                if (minutes === 60) {
+                    minutes = 0
+                    hours++
+                }
+                hr = hours.toString().padStart(2, "0")
+                min = minutes.toString().padStart(2, "0")
+                sec = seconds.toString().padStart(2, "0")
+                const timer = `${hr}:${min}:${sec}`
+                setDurationTime(timer)
+            }, 1000)
+        }
     }
 
     function stopTimer() {
-        const startBtn = document.getElementById('startBtn')
-        const stopBtn = document.getElementById('stopBtn')
-        startBtn.style.display = 'inline-block'
-        startBtn.innerHTML = 'Resume'
-        stopBtn.style.display = 'none'
-
-        const date = new Date()
-        const showTime = date.getHours().toString().padStart(2, "0")
-            + ':' + date.getMinutes().toString().padStart(2, "0")
-            + ':' + date.getSeconds().toString().padStart(2, "0")
-        console.log(showTime)
-        setFormData({ ...formData, start_time: timeStart, end_time: showTime, total_duration: time })
-        clearInterval(manageInterval)
+        if (!starting) {
+            return
+        } else {
+            setStarting(false)
+            const date = new Date()
+            const timeEnd = date.getHours().toString().padStart(2, "0")
+                + ':' + date.getMinutes().toString().padStart(2, "0")
+                + ':' + date.getSeconds().toString().padStart(2, "0")
+            setSessionData({ ...sessionData, start_time: timeStart, end_time: timeEnd, total_duration: durationTime })
+            clearInterval(intervalRef.current)
+        }
     }
 
     return (
         <div>
-            <h2 id='timer'>00:00:00</h2>
-            <button id='startBtn' onClick={startTimer}>Start</button>
-            <button id='stopBtn' onClick={stopTimer}>Stop</button>
+            <h2 id='timer'>{durationTime}</h2>
+            {
+                !starting
+                    ?
+                    <button id='startBtn' onClick={startTimer}>{durationTime !== '00:00:00' ? 'Resume' : 'Start'}</button>
+                    :
+                    <button id='stopBtn' onClick={stopTimer}>Stop</button>
+            }
         </div>
     )
 }
