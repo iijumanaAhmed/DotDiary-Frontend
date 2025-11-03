@@ -75,7 +75,6 @@ function FocusLogSession({ user }) {
         }
     }
 
-
     return (
         <div>
             {
