@@ -1,16 +1,20 @@
 import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router'
 
 import { authRequest } from '../../../../lib/auth'
 
 function Task({ toDoListId, taskId }) {
-    const navigate = useNavigate()
 
     const [taskData, setTaskData] = useState({
         task: '',
         is_done: '',
         priority: ''
     })
+
+    const PRIORITY = {
+        L: 'Low',
+        M: 'Medium',
+        H: 'High'
+    }
 
     function handleChange(event) {
         setTaskData({ ...taskData, [event.target.name]: event.target.value })
@@ -30,9 +34,6 @@ function Task({ toDoListId, taskId }) {
     async function updateTask(event) {
         event.preventDefault()
         const response = await authRequest({ data: taskData, method: 'put', url: `http://127.0.0.1:8000/api/toDoLists/${toDoListId}/tasks/${taskId}/` })
-        if (response.status === 200) {
-            navigate(`/toDoLists/${toDoListId}`)
-        }
     }
 
     return (
@@ -44,12 +45,7 @@ function Task({ toDoListId, taskId }) {
                 </div>
                 <div>
                     <label htmlFor='priority'>priority </label>
-                    <select value={taskData.priority} onChange={handleChange} id='priority' name='priority'>
-                        <option value=""></option>
-                        <option value="L">Low</option>
-                        <option value="M">Medium</option>
-                        <option value="H">High</option>
-                    </select>
+                    <input value={PRIORITY[taskData.priority]} onChange={handleChange} id='task' name='task' disabled></input>
                 </div>
                 <button type='submit'>^</button>
             </form>
