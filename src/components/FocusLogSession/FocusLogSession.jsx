@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router'
 import { authRequest } from "../../lib/auth"
 
 import Distractions from './Distractions/Distractions'
+import ToDoListDetail from '../../components/ToDoListDetail/ToDoListDetail'
 import Timer from './Timer/Timer'
 
 function FocusLogSession({ user }) {
@@ -115,6 +116,9 @@ function FocusLogSession({ user }) {
                                 </div>
                                 <button type='submit'>Submit</button>
                             </form>
+                            <div>
+                                <ToDoListDetail user={user} sessionId={sessionId} sessionData={sessionData} />
+                            </div>
                             <Distractions sessionData={sessionData} setSessionData={setSessionData} />
                             <button type='submit' onClick={deleteSession}>Delete</button>
                         </>

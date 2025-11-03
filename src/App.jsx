@@ -15,6 +15,7 @@ import FocusLogSession from './components/FocusLogSession/FocusLogSession'
 import SessionDetail from './components/FocusLogSession/SessionDetail/SessionDetail'
 
 import ToDoListForm from './components/ToDoListForm/ToDoListForm'
+import ToDoListDetail from './components/ToDoListDetail/ToDoListDetail'
 
 import DotDiary from './components/DotDiary/DotDiary'
 import WeeklySummary from './components/WeeklySummary/WeeklySummary'
@@ -43,7 +44,7 @@ function App() {
         <Route path='/focusLogs/:sessionId' element={<ProtectedRoute> <SessionDetail user={user} /> </ProtectedRoute>}></Route>
 
         <Route path='/toDoLists' element={<ProtectedRoute> <ToDoListForm user={user} setTodolistId={setTodolistId} /> </ProtectedRoute>}></Route>
-        {/* <Route path='/toDoLists/:toDoListId' element={<ProtectedRoute> <ToDoList user={user} setTodolistId={setTodolistId} /> </ProtectedRoute>}></Route> */}
+        <Route path='/toDoLists/:toDoListId' element={<ProtectedRoute> <ToDoListDetail user={user} /> </ProtectedRoute>}></Route>
       </Routes>
     </Router>
   )
