@@ -1,16 +1,19 @@
-# React + Vite
+# DotDairy - Frontend
+![DotDairy](./assets/images/logo.png)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Description
+DotDiary is a website that allow users to create FocusLogs and track it over time. The FocusLog contains a focus tag such as (working, studying, reading, writing, etc.), session timer, to-do list, distractions list and after stop the FocusLog, a rate and notes are required to review the session. Also, a weekly report visualize the week progress, sessions by date to help the user get understandable data and learn their focus pattren to increase productivity and time management. Using Django Rest Framework (DRF) for the backend, with React for the frontend, and postgreSQL for the DB creates a valuable application with enhanced functionalities.
 
-Currently, two official plugins are available:
+## Tech stack
+* Django Rest Framework
+* React
+* PostgreSQL
+* VS Code
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Front-End Repo Link
+https://github.com/iijumanaAhmed/DotDiary-Backend
 
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## IceBox Features
+1. Forgot Password
+2. Admin Dashboard & Management Pages
+3. FocusLogs Searching by Title
