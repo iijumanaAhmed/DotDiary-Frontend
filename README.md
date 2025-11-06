@@ -10,7 +10,7 @@ DotDiary is a website that allow users to create FocusLogs and track it over tim
 * PostgreSQL
 * VS Code
 
-## Front-End Repo Link
+## Backend-End Repo Link
 https://github.com/iijumanaAhmed/DotDiary-Backend
 
 ## IceBox Features
