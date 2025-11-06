@@ -3,8 +3,6 @@ import { useNavigate, useParams } from 'react-router'
 import { authRequest } from '../../lib/auth'
 
 import Tasks from '../ToDoListForm/Tasks/Tasks'
-// todo:
-// 1. handle displaying tasks
 
 function ToDoListDetail({ user, sessionId, sessionData }) {
     const { toDoListId } = useParams()
@@ -26,7 +24,6 @@ function ToDoListDetail({ user, sessionId, sessionData }) {
     }
 
     async function displaySessionToDoList() {
-        // undefined on todolist id
         let response = {}
         response = await authRequest({ method: 'get', url: `http://127.0.0.1:8000/api/focusLogs/${sessionId}/` })
 
@@ -96,55 +93,78 @@ function ToDoListDetail({ user, sessionId, sessionData }) {
                     ?
                     sessionId
                         ?
-                        <div>
-                            <h1> {sessionData.todolist} - {todolistData.list_title} session To Do List </h1>
-                            <form onSubmit={updateList}>
-                                <div>
-                                    <label htmlFor='list_title'> Current To Do List </label>
-                                    <input value={todolistData.list_title} onChange={handleChange} id='list_title' name='list_title'></input>
-                                </div>
-                                <button type='submit'>Update</button>
-                            </form>
-                            <Tasks toDoListId={todolistData.id} todolistData={todolistData} setTodoListData={setTodoListData} />
-                        </div>
+                        <table className='table session-todolist-table'>
+                            <thead>
+                                <tr>
+                                    <td className='task-td'>
+                                        <form onSubmit={updateList}>
+                                            <div className='field columns'>
+                                                <div className='column'>
+                                                    <div className='control has-icons-left'>
+                                                        <input className='input is-small' value={todolistData.list_title} onChange={handleChange} id='list_title' name='list_title' required></input>
+                                                        <span class="icon is-small is-left">
+                                                            <i class="fa-solid fa-list"></i>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <button className='button is-primary is-small update-button' type='submit'>Update</button>
+                                            </div>
+                                        </form>
+                                    </td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {
+                                    todolistData.tasks
+                                        ?
+                                        <Tasks toDoListId={todolistData.id} todolistData={todolistData} setTodoListData={setTodoListData} />
+                                        :
+                                        <tr>
+                                            <td>
+                                                <p className='has-text-grey-light has-text-weight-semibold'> No Tasks Assigned...</p>
+                                            </td>
+                                        </tr>
+                                }
+                            </tbody>
+                        </table>
                         :
                         toDoListId
                             ?
                             <>
-                                <h1> {toDoListId} - {todolistData.list_title} To Dooooo List </h1>
-                                <form onSubmit={updateToDoList}>
-                                    <div>
-                                        <label htmlFor='list_title'> Current To Do List </label>
-                                        <input value={todolistData.list_title} onChange={handleChange} id='list_title' name='list_title'></input>
+                                <div className='section has-text-centered create-tasks-section'>
+                                    <img width='100' src='..\src\assets\images\two.gif'></img>
+                                    <h1 className='title is-3'>Add Your Tasks To Achieve!</h1>
+                                    <form onSubmit={updateToDoList}>
+                                        <div className='field columns'>
+                                            <div className='column'>
+                                                <div className='control has-icons-left'>
+                                                    <input className='input is-small' value={todolistData.list_title} onChange={handleChange} id='list_title' name='list_title' required></input>
+                                                    <span class="icon is-small is-left">
+                                                        <i class="fa-solid fa-list"></i>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <button className='button is-primary todolist-title-update' type='submit'>Update</button>
+                                        </div>
+                                    </form>
+                                    <table className='table tabel-tasks-section'>
+                                        <tbody>
+                                            <Tasks toDoListId={toDoListId} todolistData={todolistData} setTodoListData={setTodoListData} />
+                                        </tbody>
+                                    </table>
+                                    <div className='todolist-buttons'>
+                                        <button className='button is-danger' type='submit' onClick={deleteToDoList}>Delete To-Do List</button>
+                                        <button className='button is-success' type='submit' onClick={currentSession}>Next</button>
                                     </div>
-                                    <button type='submit'>Update</button>
-                                </form>
-                                {/* <Tasks toDoListId={toDoListId} todolistData={todolistData} setTodoListData={setTodoListData} /> */}
-                                <button type='submit' onClick={deleteToDoList}>Delete</button>
-                                <button type='submit' onClick={currentSession}>Next</button>
+                                </div>
                             </>
                             :
-                            <p>no todolist id</p>
+                            null
                     :
-                    <p>unathorized user</p>
+                    <p className='subtitle is-4 has-text-dark'>unathorized user</p>
             }
         </div>
     )
 }
 
 export default ToDoListDetail
-
-
-// <div>
-//     <h1> {todolistData.list_title} To Do List Detail</h1>
-//     {/* <form onSubmit={updateToDoList}>
-//             <div>
-//                 <label htmlFor='list_title'> Current To Do List </label>
-//                 <input value={todolistData.list_title} onChange={handleChange} id='list_title' name='list_title'></input>
-//             </div>
-//             <button type='submit'>Update</button>
-//         </form>
-//         <Tasks toDoListId={todolist} todolistData={todolistData} setTodoListData={setTodoListData} sessionId={sessionId} />
-//         <button type='submit' onClick={deleteToDoList}>Delete</button>
-//         <button type='submit' onClick={currentSession}>Next</button> */}
-// </div>

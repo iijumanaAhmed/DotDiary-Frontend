@@ -1,26 +1,20 @@
 import { Link } from 'react-router'
-import LogOutButton from '../Auth/LogOutButton'
 
-function NavBar({ user, setUser }) {
+function NavBar({ user }) {
     return (
-        <nav>
+        <nav className='navbar level'>
             {
                 user
                     ?
                     <>
-                        <image src='../assets/images/dotDiary_logo.png'></image>
-                        <Link to={'/dotDiary'}>DotDiary</Link>
-                        <Link to={'/focusLogs'}>Focus Sessions</Link>
-                        <Link to={'/toDoLists'}>Todo Lists</Link>
-                        <Link to='/weeklySummary'>Weekly Summary</Link>
-                        <Link to={`/profile/${user.user_id}`}>Profile</Link>
-                        <LogOutButton setUser={setUser} />
+                        <Link className='level-item has-text-primary has-text-weight-semibold' to={'/focusLogs'}>FOCUS SESSIONS</Link>
+                        <Link className='level-item has-text-primary has-text-weight-semibold' to={'/toDoLists'}>TO-DO LISTS</Link>
+                        <Link><img className='level-item'  width='150' src='..\..\..\src\assets\images\DotDiary_logo.png'></img></Link>
+                        <Link className='level-item has-text-primary has-text-weight-semibold' to='/weeklySummary'>WEEKLY SUMMARY</Link>
+                        <Link className='level-item has-text-primary has-text-weight-semibold' to={`/profile/${user.user_id}`}>PROFILE</Link>
                     </>
                     :
-                    <>
-                        <Link to={'/signup'}>Sign Up</Link>
-                        <Link to={'/login'}>Log In</Link>
-                    </>
+                    null
             }
         </nav>
     )

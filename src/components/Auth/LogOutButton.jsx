@@ -9,9 +9,7 @@ function LogOutButton({ setUser }) {
         navigate('/login')
     }
     return (
-        <div>
-            <button onClick={handleLogOut}>Log Out</button>
-        </div>
+        <button className='button is-danger' onClick={handleLogOut}>Log Out</button>
     )
 }
 

@@ -9,15 +9,14 @@ function Task({ toDoListId, taskId }) {
         is_done: '',
         priority: ''
     })
-    
+    const [isChecked, setIsChecked] = useState()
+
     const PRIORITY = {
         L: 'Low',
         M: 'Medium',
         H: 'High'
     }
-    
-    const [isChecked, setIsChecked] = useState()
-    
+
     function handleChange(event) {
         setTaskData({ ...taskData, [event.target.name]: event.target.value })
         console.log(taskData)
@@ -52,21 +51,32 @@ function Task({ toDoListId, taskId }) {
     }
 
     return (
-        <div>
-            {/* https://dev.to/collegewap/how-to-work-with-checkboxes-in-react-44bc */}
-            <input type='checkbox' checked={isChecked} onChange={handleIsChecked}></input>
-            <form onSubmit={updateTask}>
-                <div>
-                    <label htmlFor='task'>task </label>
-                    <input value={taskData.task} onChange={handleChange} id='task' name='task'></input>
+        <form onSubmit={updateTask}>
+            <td className='task-td task-col'>
+                {/* https://dev.to/collegewap/how-to-work-with-checkboxes-in-react-44bc */}
+                <input type='checkbox' checked={isChecked} onChange={handleIsChecked}></input>
+            </td>
+            <td className='task-td task-col'>
+                <input className='input is-small task-input' placeholder='Task' value={taskData.task} onChange={handleChange} id='task' name='task'></input>
+            </td>
+            <td className='task-td task-col'>
+                <div className='select is-small'>
+                    <select value={taskData.priority} onChange={handleChange} id='priority' name='priority'>
+                        <option value=""></option>
+                        <option value="L">Low</option>
+                        <option value="M">Medium</option>
+                        <option value="H">High</option>
+                    </select>
                 </div>
-                <div>
-                    <label htmlFor='priority'>priority </label>
-                    <input value={PRIORITY[taskData.priority]} onChange={handleChange} id='task' name='task' disabled></input>
-                </div>
-                <button type='submit'>^</button>
-            </form>
-        </div>
+            </td>
+            <td className='task-td'>
+                <button className='button is-primary add-update-delete-button is-pulled-right' type='submit'>
+                    <span class="icon">
+                        <i class="fa-solid fa-pen-to-square"></i>
+                    </span>
+                </button>
+            </td>
+        </form>
     )
 }
 

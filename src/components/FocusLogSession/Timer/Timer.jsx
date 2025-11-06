@@ -2,7 +2,7 @@ import { useState, useRef } from "react"
 
 function Timer({ setSessionData, sessionData }) {
     // Used to create simple timer: https://www.youtube.com/watch?v=ZhW7sB70lZ4
-    // Used to update the timer using useState, useRef: https://medium.com/swlh/creating-a-simple-countdown-timer-using-react-useref-hook-92ae5b6210cb
+    // Used to update the timer using useState, useEffect, useRef: https://medium.com/swlh/creating-a-simple-countdown-timer-using-react-useref-hook-92ae5b6210cb
     const [starting, setStarting] = useState(false)
     const [durationTime, setDurationTime] = useState("00:00:00")
     const [timeStart, setTimeStart] = useState(null)
@@ -58,14 +58,14 @@ function Timer({ setSessionData, sessionData }) {
     }
 
     return (
-        <div>
-            <h2 id='timer'>{durationTime}</h2>
+        <div className='column'>
+            <h2 className='title has-text-dark has-text-weight-bold timer' id='timer'>{durationTime}</h2>
             {
                 !starting
                     ?
-                    <button id='startBtn' onClick={startTimer}>{durationTime !== '00:00:00' ? 'Resume' : 'Start'}</button>
+                    <button className={durationTime !== '00:00:00' ? 'button is-info is-small timer-button' : 'button is-success is-small timer-button'} id='startBtn' onClick={startTimer}>{durationTime !== '00:00:00' ? 'Resume' : 'Start'}</button>
                     :
-                    <button id='stopBtn' onClick={stopTimer}>Stop</button>
+                    <button className='button is-danger is-small timer-button' id='stopBtn' onClick={stopTimer}>Stop</button>
             }
         </div>
     )

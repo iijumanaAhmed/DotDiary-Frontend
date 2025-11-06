@@ -1,5 +1,4 @@
 import { useState } from 'react'
-
 import { authRequest } from '../../../lib/auth'
 
 import Task from './Task/Task'
@@ -49,62 +48,61 @@ function Tasks({ toDoListId, todolistData, setTodoListData }) {
     }
 
     return (
-        <div>
-            {
-                todolistData.tasks
-                    ?
-                    <div>
-                        <h3>Tasks:</h3>
-                        {
-                            todolistData.tasks
-                                ?
-                                todolistData.tasks.map(task => {
-                                    return (
-                                        <div key={task.id}>
-                                            <Task toDoListId={toDoListId} taskId={task.id} tasksData={tasksData} setTasksData={setTasksData} />
-                                            <button onClick={() => { deleteTask(task.id) }}>x</button>
-                                        </div>
-                                    )
-                                })
-                                :
-                                null
-                        }
+            <>
+                <tr>
+                    <td colSpan={5}></td>
+                </tr>
+                <tr>
+                    <td colSpan={5}>
                         <form onSubmit={addTask}>
-                            <div>
-                                <label htmlFor='task'>task </label>
-                                <input value={tasksData.task} onChange={handleChange} id='task' name='task'></input>
-                            </div>
-                            <div>
-                                <label htmlFor='priority'>priority </label>
-                                <select value={tasksData.priority} onChange={handleChange} id='priority' name='priority'>
-                                    <option value=""></option>
-                                    <option value="L">Low</option>
-                                    <option value="M">Medium</option>
-                                    <option value="H">High</option>
-                                </select>
-                            </div>
-                            <button type='submit'>+</button>
+                            <td className='task-td'>
+                                <input className='input is-small session-new-task-input' placeholder='Task' value={tasksData.task} onChange={handleChange} id='task' name='task' required></input>
+                            </td>
+                            <td className='task-td'>
+                                <div className='select is-small'>
+                                    <select value={tasksData.priority} onChange={handleChange} id='priority' name='priority' required>
+                                        <option value=""></option>
+                                        <option value="L">Low</option>
+                                        <option value="M">Medium</option>
+                                        <option value="H">High</option>
+                                    </select>
+                                </div>
+                            </td>
+                            <td className='task-td'>
+                                <button className='button is-success add-update-delete-button' type='submit'>
+                                    <span class="icon is-small">
+                                        <i class="fa-solid fa-plus"></i>
+                                    </span>
+                                </button>
+                            </td>
                         </form>
-                    </div>
-                    :
-                    <form onSubmit={addTask}>
-                        <div>
-                            <label htmlFor='task'>task </label>
-                            <input value={tasksData.task} onChange={handleChange} id='task' name='task'></input>
-                        </div>
-                        <div>
-                            <label htmlFor='priority'>priority </label>
-                            <select value={tasksData.priority} onChange={handleChange} id='priority' name='priority'>
-                                <option value=""></option>
-                                <option value="L">Low</option>
-                                <option value="M">Medium</option>
-                                <option value="H">High</option>
-                            </select>
-                        </div>
-                        <button type='submit'>+</button>
-                    </form>
-            }
-        </div>
+                    </td>
+                </tr>
+                {
+                    todolistData.tasks
+                        ?
+                        todolistData.tasks.map(task => {
+                            return (
+                                <tr key={task.id}>
+                                    <td className='task-col'>
+                                        <Task toDoListId={toDoListId} taskId={task.id} />
+                                    </td>
+                                    <td>
+                                        <td className='task-td'>
+                                            <button className='button is-danger add-update-delete-button delete-col' onClick={() => { deleteTask(task.id) }}>
+                                                <span class="icon is-small">
+                                                    <i class="fa-solid fa-trash"></i>
+                                                </span>
+                                            </button>
+                                        </td>
+                                    </td>
+                                </tr>
+                            )
+                        })
+                        :
+                        null
+                }
+            </>
     )
 }
 

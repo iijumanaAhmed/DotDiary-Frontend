@@ -1,42 +1,378 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+@import '@fortawesome/fontawesome-free/css/all.min.css';
+
+@import "https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css";
+
+:root {
+  --bulma-link-h: 200deg;
+  --bulma-link-s: 70%;
+  --bulma-link-l: 72%;
+  --bulma-primary-h: 206deg;
+  --bulma-primary-s: 82%;
+  --bulma-primary-l: 39%;
+  --bulma-info-h: 31deg;
+  --bulma-info-l: 61%;
+  --bulma-success-h: 142deg;
+  --bulma-success-s: 65%;
+  --bulma-success-l: 46%;
+  --bulma-warning-l: 49%;
+  --bulma-danger-h: 360deg;
+  --bulma-danger-l: 66%;
+  --bulma-scheme-main-l: 100%;
+  --bulma-scheme-main-bis-l: 98%;
+  --bulma-scheme-main-ter-l: 98%;
+  --bulma-background-l: 96%;
+  --bulma-border-weak-l: 93%;
+  --bulma-border-l: 86%;
+  --bulma-text-weak-l: 48%;
+  --bulma-text-l: 29%;
+  --bulma-text-strong-l: 21%;
+  --bulma-text-title-l: 14%;
+  --bulma-hover-background-l-delta: 10%;
+  --bulma-active-background-l-delta: 10%;
+  --bulma-hover-border-l-delta: 10%;
+  --bulma-active-border-l-delta: 20%;
+  --bulma-hover-color-l-delta: 20%;
+  --bulma-active-color-l-delta: 10%;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.countiner {
+  height: 34vw;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.profile-section {
+  width: 40vw;
+  margin: 15vh auto 0vh;
+  padding: 3vw 4vw;
+  border-radius: 20px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.profile-buttons {
+  display: inline-block;
+  margin: 2vw 0vw;
 }
 
-.card {
-  padding: 2em;
+.profile-buttons button {
+  margin-left: 1vw;
 }
 
-.read-the-docs {
-  color: #888;
+.focusLogs-index-section {
+  width: 95vw;
+  margin: auto 2vw;
+}
+
+.focusLogs-index-empty-section {
+  margin-top: 4vw;
+}
+
+.focuslog-card {
+  width: 20vw;
+  height: fit-content;
+  padding: 1.5vw;
+  margin-left: 2vw;
+  background-color: rgba(197, 197, 197, 0.014);
+  box-shadow: 0px 0px 10px rgba(74, 72, 70, 0.264);
+}
+
+.focuslog-summary .column {
+  margin: 3vw auto 0vw;
+  width: 12vw;
+  font-size: 0.9vw;
+}
+
+.tag {
+  color: white;
+}
+
+.todolists-index-empty-section {
+  margin-top: 8vw;
+}
+
+.check-color {
+  color: #2ac361;
+}
+
+.uncheck-color {
+  color: #ff5252;
+}
+
+.session-todolist-table {
+  width: 30vw;
+  box-shadow: 0px 0px 5px rgba(74, 72, 70, 0.264);
+}
+
+.session-todolist-table .task-task {
+  width: 30vw;
+  text-align: left;
+}
+
+.session-timer {
+  background-color: rgba(197, 197, 197, 0.014);
+  box-shadow: 0px 0px 5px rgba(74, 72, 70, 0.264);
+  height: 6vw;
+  width: 28vw;
+  margin: auto;
+}
+
+.session-distractions {
+  background-color: rgba(197, 197, 197, 0.014);
+  box-shadow: 0px 0px 5px rgba(74, 72, 70, 0.264);
+  height: 25vw;
+  width: 28vw;
+  margin: auto;
+}
+
+.session-tag-level {
+  background-color: rgba(197, 197, 197, 0.014);
+  box-shadow: 0px 0px 5px rgba(74, 72, 70, 0.264);
+  height: 6vw;
+  width: 30vw;
+  margin: auto;
+}
+
+.session-tag-level .select {
+  margin-top: 0.5vw;
+}
+
+.session-outcomes {
+  background-color: rgba(197, 197, 197, 0.014);
+  box-shadow: 0px 0px 5px rgba(74, 72, 70, 0.264);
+  height: 25vw;
+  width: 30vw;
+  margin: auto;
+  word-wrap: break-word;
+}
+
+.session-outcomes textarea {
+  height: 20vw;
+  width: 26vw;
+  margin: auto;
+  word-wrap: break-word;
+}
+
+.session-outcomes p:last-child {
+  margin: 0.5vw auto;
+  width: 28vw;
+  height: 21vw;
+  text-align: left;
+  word-wrap: break-word;
+  overflow-y: auto;
+}
+
+.distraction-flex {
+  width: 28vw;
+  margin: 0.5vw auto;
+  height: 21vw;
+  overflow-y: auto;
+}
+
+.distraction-cell {
+  padding: 0.25vw 0.7vw;
+}
+
+.todolist-form-section {
+  width: 45vw;
+  margin: 10vw auto;
+  padding: 3vw 4vw;
+  border-radius: 20px;
+}
+
+.todolist-form-section form {
+  width: 25vw;
+  margin: 0vw auto;
+}
+
+.tasks-section {
+  width: 40vw;
+  margin: 1vw auto;
+  justify-items: center;
+  padding: 5vw 4vw;
+  border-radius: 20px;
+}
+
+.tabel-tasks-section {
+  width: 50vw;
+  margin: auto;
+  overflow-y: auto;
+}
+
+.tabel-tasks-section td {
+  width: 50vw;
+}
+
+.task-td {
+  border-style: none !important;
+}
+
+.create-tasks-section .columns {
+  margin: auto;
+  align-items: center;
+}
+
+.create-tasks-section>form {
+  width: 30vw;
+  margin: 0vw auto;
+}
+
+.add-update-delete-button {
+  width: 2vw;
+  height: 2vw;
+}
+
+.new-task-input {
+  width: 20vw;
+}
+
+.task-input {
+  width: 10vw;
+  margin-right: 0vw;
+}
+
+.delete-col {
+  width: 2vw;
+  margin-left: -2vw;
+}
+
+.todolist-title-update {
+  width: 6vw;
+  height: 2vw;
+}
+
+.todolist-buttons button,
+.create-button {
+  margin: 2vw 0.5vw;
+  padding: 0.5vw 3vw;
+}
+
+.create-focusLog-section {
+  width: 40vw;
+  margin: 2vw auto;
+  padding: 10vw 4vw;
+  border-radius: 20px;
+}
+
+.tags-list {
+  width: 15vw;
+}
+
+.session-distraction-flex {
+  width: 28vw;
+  margin: 0.5vw auto;
+  height: 8vw;
+  overflow-y: auto;
+}
+
+.update-button {
+  margin: 0.8vw 0.5vw;
+  padding: 0.5vw 2vw;
+}
+
+.session-new-task-input {
+  width: 16vw;
+}
+
+.timer {
+  padding: 0;
+  margin: 0 !important;
+}
+
+.timer-button{
+  margin-top: 0.4vw;
+  padding: 0.25vw 2vw;
+}
+
+.singup-login-background {
+  position: absolute;
+  z-index: -100;
+  width: 100%;
+  height: 100vh;
+  opacity: 0.6;
+  top: 0;
+  margin: auto;
+  padding: auto;
+  filter: grayscale(20%);
+}
+
+.signup-section {
+  width: 40vw;
+  margin: 12vh auto 0vh;
+  padding: 1.5vw 4%;
+  border-radius: 20px;
+  background-color: white;
+  box-shadow: 0px 0px 10px rgba(128, 128, 128, 0.264);
+}
+
+.login-section {
+  width: 40vw;
+  margin: 20vh auto 0vw;
+  padding: 1% 4%;
+  border-radius: 20px;
+  background-color: white;
+  box-shadow: 0px 0px 10px rgba(128, 128, 128, 0.264);
+}
+
+.navbar {
+  box-shadow: 0px 0px 10px rgba(128, 128, 128, 0.264);
+}
+
+.dotdairy-links {
+  width: 20vw;
+  margin: 10vw 2vw;
+  padding: 1% 4%;
+  border-radius: 20px;
+  background-color: white;
+  box-shadow: 0px 0px 10px rgba(128, 128, 128, 0.264);
+}
+
+.button {
+  color: white;
+}
+
+.dotdiary-buttons a {
+  margin: 1.5vw 0.5vw;
+  width: 10vw;
+}
+
+.dotdiary-background {
+  position: absolute;
+  z-index: -1;
+  height: 100vh;
+  opacity: 0.4;
+  top: 0;
+  margin: auto;
+  padding: auto;
+  rotate: 90deg;
+}
+
+.dotdiary-description {
+  margin: auto;
+  width: 60vw;
+  padding: 2.5vw 0vw 0vw;
+}
+
+.dotdiary-tags {
+  margin: 0vw 1vw 2vw;
+}
+
+.dotdiary-img1 {
+  position: absolute;
+  z-index: 1;
+  top: 26vw;
+  right: 18vw;
+  width: 5vw;
+}
+
+.dotdiary-img2 {
+  position: absolute;
+  z-index: 1;
+  top: 37vw;
+  right: 80vw;
+  width: 5vw;
+}
+
+.dotdiary-img3 {
+  position: absolute;
+  z-index: 1;
+  top: 1vw;
+  right: 47vw;
+  width: 5vw;
 }

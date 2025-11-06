@@ -33,22 +33,28 @@ function ToDoListForm({ user, setTodolistId }) {
     }
 
     return (
-        <div>
+        <div className='countiner'>
             {
                 user
                     ?
-                    <>
-                        <h1>Create To Do List FOR SESSION</h1>
+                    <div className='section has-text-centered todolist-form-section'>
+                        <img width='100' src='..\src\assets\images\one.gif'></img>
+                        <h1 className='title is-3'>Create Your Session To-Do List</h1>
                         <form onSubmit={addToDoList}>
-                            <div>
-                                <label htmlFor='list_title'> To Do List </label>
-                                <input value={todolistData.list_title} onChange={handleChange} id='list_title' name='list_title'></input>
+                            <div className='field'>
+                                <label className='label has-text-left' htmlFor='list_title'>List Title</label>
+                                <div className='control has-icons-left'>
+                                    <input className='input' value={todolistData.list_title} onChange={handleChange} id='list_title' name='list_title' required></input>
+                                    <span class="icon is-small is-left">
+                                        <i class="fa-solid fa-list"></i>
+                                    </span>
+                                </div>
                             </div>
-                            <button type='submit'>Create</button>
+                            <button className='button is-success create-button' type='submit'>Create</button>
                         </form>
-                    </>
+                    </div>
                     :
-                    <p>unathorized user</p>
+                    <p className='subtitle is-4 has-text-dark'>unathorized user</p>
             }
         </div>
     )

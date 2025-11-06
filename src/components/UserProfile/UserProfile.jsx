@@ -57,36 +57,60 @@ function UserProfile({ user, setUser }) {
     }
 
     return (
-        <div>
+        <div className='countiner has-background-white-ter'>
             {
                 user
                     ?
-                    <div>
-                        <h1>Welcome @{userData.username}</h1>
+                    <div className='section has-text-centered profile-section'>
+                        <h1 className='title is-3'>User Account</h1>
                         <form onSubmit={updateUserInformation}>
-                            <div>
-                                <label htmlFor='first_name'> First name </label>
-                                <input value={userData.first_name} onChange={handleChange} id='first_name' name='first_name'></input>
+                            <div className='field columns'>
+                                <div className='column'>
+                                    <label className='label has-text-left'>First Name</label>
+                                    <div className='control has-icons-left'>
+                                        <input className='input is-small' value={userData.first_name} onChange={handleChange} id='first_name' name='first_name'></input>
+                                        <span className="icon is-small is-left">
+                                            <i className="fas fa-solid fa-id-card"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div className='column'>
+                                    <label className='label has-text-left'>Last Name</label>
+                                    <div className='control has-icons-left'>
+                                        <input className='input is-small' value={userData.last_name} onChange={handleChange} id='last_name' name='last_name'></input>
+                                        <span className="icon is-small is-left">
+                                            <i className="fas fa-solid fa-id-card"></i>
+                                        </span>
+                                    </div>
+                                </div>
                             </div>
-                            <div>
-                                <label htmlFor='last_name'> Last name </label>
-                                <input value={userData.last_name} onChange={handleChange} id='last_name' name='last_name'></input>
+                            <div className='field'>
+                                <label className='label has-text-left'>Username</label>
+                                <div className='control has-icons-left'>
+                                    <input className='input is-small' value={userData.username} onChange={handleChange} id='username' name='username'></input>
+                                    <span className="icon is-small is-left">
+                                        <i className="fas fa-solid fa-user"></i>
+                                    </span>
+                                </div>
                             </div>
-                            <div>
-                                <label htmlFor='username'> Username </label>
-                                <input value={userData.username} onChange={handleChange} id='username' name='username'></input>
+                            <div className='field'>
+                                <label className='label has-text-left'>Email</label>
+                                <div className='control has-icons-left'>
+                                    <input className='input is-small' value={userData.email} onChange={handleChange} id='email' name='email' type='email'></input>
+                                    <span className="icon is-small is-left">
+                                        <i className="fas fa-envelope"></i>
+                                    </span>
+                                </div>
                             </div>
-                            <div>
-                                <label htmlFor='email'> Email </label>
-                                <input value={userData.email} onChange={handleChange} id='email' name='email' type='email'></input>
-                            </div>
-                            <button type='submit'>Update Information</button>
+                            <button className='button is-primary' type='submit'>Update Information</button>
                         </form>
-                        <button type='submit' onClick={deleteUserAccount}>Delete Account</button>
-                        <LogOutButton setUser={setUser} />
+                        <div className='profile-buttons is-pulled-right'>
+                            <LogOutButton setUser={setUser} />
+                            <button className='button is-dark' type='submit' onClick={deleteUserAccount}>Delete Account</button>
+                        </div>
                     </div>
                     :
-                    <p>unathorized user</p>
+                    <p className='subtitle is-4 has-text-dark'>unathorized user</p>
             }
         </div>
     )
